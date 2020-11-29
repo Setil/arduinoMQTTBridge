@@ -14,7 +14,10 @@ public class Application {
     private static final Logger logger = LogManager.getLogger();
     public static void main(String[] args) {
         final MQTTClient client = new MQTTClient();
-        Arduino arduino = new Arduino("COM3", 9600);
+        Arduino arduino = new Arduino(
+                Properties.get().getArduinoPortName(),
+                Properties.get().getArduinoBaudRate());
+
         boolean connected = arduino.openConnection();
         System.out.println("Соединение установлено: " + connected);
         arduino.serialRead("DONE",message ->{

@@ -6,9 +6,20 @@ import ru.qatools.properties.Resource;
 
 @Resource.Classpath("application.properties")
 public class Properties {
+    @Property("mqttHost")
+    private String mqttHost;
+    @Property("mqttPort")
+    private int mqttPort;
+    @Property("arduinoPortName")
+    private String arduinoPortName;
+    @Property("arduinoBaudRate")
+    private int arduinoBaudRate;
+
     private static Properties instance;
-    public static Properties get(){
-        if (instance == null){
+
+
+    public static Properties get() {
+        if (instance == null) {
             instance = new Properties();
             PropertyLoader.newInstance().populate(instance);
         }
@@ -33,8 +44,19 @@ public class Properties {
         return this;
     }
 
-    @Property("mqttHost")
-    private String mqttHost;
-    @Property("mqttPort")
-    private int mqttPort;
+    public String getArduinoPortName() {
+        return arduinoPortName;
+    }
+
+    public void setArduinoPortName(String arduinoPortName) {
+        this.arduinoPortName = arduinoPortName;
+    }
+
+    public int getArduinoBaudRate() {
+        return arduinoBaudRate;
+    }
+
+    public void setArduinoBaudRate(int arduinoBaudRate) {
+        this.arduinoBaudRate = arduinoBaudRate;
+    }
 }
