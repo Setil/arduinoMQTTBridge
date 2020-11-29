@@ -3,13 +3,15 @@
 #include <DallasTemperature.h>
 
 #define ONE_WIRE_BUS A5
+#define TEMPERATURE_PRECISION 12
 
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
 void setup(void)
 {  
-  Serial.begin(9600); 
+  Serial.begin(9600);
   sensors.begin();      
+  delay(500);//Wait for newly restarted system to stabilize
 }
 
 void loop(void)
@@ -27,6 +29,7 @@ JSONVar checkThermometers(){
   JSONVar result;
   result["totalThermometers"] = totalThermometers;
   JSONVar thermometersJson;
+  sensors.requestTemperatures(); 
   for (int i = 0;  i < totalThermometers;  i++) {
     JSONVar thermometer;
     sensors.getAddress(currentThermometer,i);
